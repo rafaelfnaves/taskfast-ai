@@ -4,6 +4,21 @@
 
 TaskFast AI é uma aplicação moderna de gerenciamento de tarefas que utiliza IA para sugerir prioridades automaticamente, ajudando usuários a organizarem melhor seu trabalho e aumentarem sua produtividade.
 
+## 🖼️ Telas da Aplicação
+
+<table>
+  <tr>
+    <td align="center"><strong>Login</strong></td>
+    <td align="center"><strong>Dashboard</strong></td>
+    <td align="center"><strong>Tarefa com IA</strong></td>
+  </tr>
+  <tr>
+    <td><img src="./docs/login.png" alt="Tela de Login" width="100%"></td>
+    <td><img src="./docs/dashboard.png" alt="Dashboard Principal" width="100%"></td>
+    <td><img src="./docs/task-with-ai.png" alt="Criação de Tarefa com IA" width="100%"></td>
+  </tr>
+</table>
+
 ## 🚀 Tecnologias
 
 - **Frontend**: Next.js 15 + TypeScript + TailwindCSS
@@ -19,9 +34,8 @@ TaskFast AI é uma aplicação moderna de gerenciamento de tarefas que utiliza I
 ### MVP (Versão Atual)
 - ✅ **CRUD de Tarefas**: Criar, visualizar, editar e excluir tarefas
 - ✅ **Sugestões de IA**: Análise automática de prioridades usando OpenAI
-- ✅ **Categorização**: Organização por categorias personalizadas
 - ✅ **Soft Delete**: Recuperação de tarefas deletadas (30 dias)
-- 🔄 **Dashboard**: Visão geral com estatísticas e métricas
+- ✅ **Dashboard**: Visão geral com estatísticas e métricas
 - 🔄 **Notificações**: Alertas para prazos próximos
 - 🔄 **Autenticação**: Sistema seguro de login/registro
 
@@ -35,7 +49,7 @@ TaskFast AI é uma aplicação moderna de gerenciamento de tarefas que utiliza I
 ## 🛠️ Instalação e Configuração
 
 ### Pré-requisitos
-- Node.js 18+ 
+- Node.js 20+ 
 - npm ou yarn
 - Docker (opcional, para containerização)
 - Chave da API OpenAI
@@ -56,6 +70,8 @@ O arquivo `.env` já está configurado com:
 ```bash
 OPENAI_API_KEY=sua_chave_openai_aqui
 DATABASE_URL="file:./dev.db"
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your-secret-key-here-change-in-prod
 ```
 
 ### 4. Configure o Banco de Dados

@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { signOut } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { 
@@ -33,6 +33,7 @@ interface AppLayoutProps {
 export function AppLayout({ children }: AppLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const pathname = usePathname()
+  const { status } = useSession()
 
   const navigation = [
     { name: 'Dashboard', href: '/dashboard', icon: Home, current: pathname === '/dashboard' },
@@ -41,8 +42,29 @@ export function AppLayout({ children }: AppLayoutProps) {
     { name: 'Configurações', href: '/settings', icon: Settings, current: pathname === '/settings' },
   ]
 
+  const currentPage = navigation.find((item) => item.href === pathname)
+  const pageTitle = currentPage ? currentPage.name : 'Bem-vindo'
+
   const handleSignOut = () => {
     signOut({ callbackUrl: '/auth/login' })
+  }
+
+  const isAuthPage = pathname.startsWith('/auth')
+
+  if (isAuthPage || status === 'unauthenticated') {
+    return (
+      <main className="flex items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900">
+        {children}
+      </main>
+    )
+  }
+
+  if (status === 'loading') {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900">
+        <p>Carregando...</p>
+      </div>
+    )
   }
 
   return (
@@ -126,7 +148,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                 <Menu className="h-5 w-5" />
               </Button>
               <h1 className="ml-4 text-lg font-semibold text-gray-900 dark:text-white lg:ml-0">
-                Dashboard
+                {pageTitle}
               </h1>
             </div>
 
