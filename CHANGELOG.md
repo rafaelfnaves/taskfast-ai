@@ -5,6 +5,12 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
 e este projeto adere ao [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.1] - 2025-07-23
+
+### Corrigido
+- **Layout:** A sidebar de navegação não é mais exibida para usuários não autenticados, garantindo que apenas as páginas de login e registro sejam acessíveis.
+- **UI:** O título da página agora é atualizado dinamicamente para refletir a seção atual em que o usuário está navegando (ex: "Tarefas", "Analytics").
+
 ## [Unreleased]
 
 ### Adicionado
@@ -134,7 +140,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
   - Componentes acessíveis seguindo padrões WCAG
 
 - **Layout e Navegação**:
-  - Sidebar colapsível com navegação principal
+  - Sidebar colapsável com navegação principal
   - Header com menu de usuário e notificações
   - Breadcrumbs e indicadores de página ativa
   - Menu mobile com overlay para dispositivos pequenos
