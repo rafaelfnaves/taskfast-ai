@@ -53,12 +53,10 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json({
-      suggestion: {
-        priority: suggestion.priority,
-        mappedPriority,
-        reason: suggestion.reason,
-        confidence: 'high', // Could be enhanced with actual confidence scoring
-      },
+      suggestedPriority: mappedPriority,
+      priority: suggestion.priority,
+      reasoning: suggestion.reason,
+      confidence: 'high'
     })
   } catch (error) {
     console.error('Error getting AI priority suggestion:', error)

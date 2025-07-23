@@ -1,6 +1,9 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { signOut } from 'next-auth/react'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { 
@@ -29,13 +32,18 @@ interface AppLayoutProps {
 
 export function AppLayout({ children }: AppLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const pathname = usePathname()
 
   const navigation = [
-    { name: 'Dashboard', href: '/', icon: Home, current: true },
-    { name: 'Tarefas', href: '/tasks', icon: CheckSquare, current: false },
-    { name: 'Analytics', href: '/analytics', icon: BarChart3, current: false },
-    { name: 'Configurações', href: '/settings', icon: Settings, current: false },
+    { name: 'Dashboard', href: '/dashboard', icon: Home, current: pathname === '/dashboard' },
+    { name: 'Tarefas', href: '/tasks', icon: CheckSquare, current: pathname === '/tasks' },
+    { name: 'Analytics', href: '/analytics', icon: BarChart3, current: pathname === '/analytics' },
+    { name: 'Configurações', href: '/settings', icon: Settings, current: pathname === '/settings' },
   ]
+
+  const handleSignOut = () => {
+    signOut({ callbackUrl: '/auth/login' })
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -58,7 +66,7 @@ export function AppLayout({ children }: AppLayoutProps) {
           </div>
           <nav className="flex-1 space-y-1 px-2 py-4">
             {navigation.map((item) => (
-              <a
+              <Link
                 key={item.name}
                 href={item.href}
                 className={`group flex items-center rounded-md px-2 py-2 text-sm font-medium ${
@@ -66,10 +74,11 @@ export function AppLayout({ children }: AppLayoutProps) {
                     ? 'bg-blue-100 text-blue-900 dark:bg-blue-900 dark:text-blue-100'
                     : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white'
                 }`}
+                onClick={() => setSidebarOpen(false)}
               >
                 <item.icon className="mr-3 h-5 w-5 flex-shrink-0" />
                 {item.name}
-              </a>
+              </Link>
             ))}
           </nav>
         </div>
@@ -84,7 +93,7 @@ export function AppLayout({ children }: AppLayoutProps) {
           </div>
           <nav className="flex-1 space-y-1 px-2 py-4">
             {navigation.map((item) => (
-              <a
+              <Link
                 key={item.name}
                 href={item.href}
                 className={`group flex items-center rounded-md px-2 py-2 text-sm font-medium ${
@@ -92,10 +101,11 @@ export function AppLayout({ children }: AppLayoutProps) {
                     ? 'bg-blue-100 text-blue-900 dark:bg-blue-900 dark:text-blue-100'
                     : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white'
                 }`}
+                onClick={() => setSidebarOpen(false)}
               >
                 <item.icon className="mr-3 h-5 w-5 flex-shrink-0" />
                 {item.name}
-              </a>
+              </Link>
             ))}
           </nav>
         </div>
@@ -161,7 +171,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                     <span>Configurações</span>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleSignOut}>
                     <LogOut className="mr-2 h-4 w-4" />
                     <span>Sair</span>
                   </DropdownMenuItem>
